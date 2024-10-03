@@ -6,14 +6,20 @@ class Automata:
         self.state = 'q0'
         self.errors = []
 
-    def transition(self, input_char):
+    def transition(self, input_string):
+      for input_char in input_string:
         previous_state = self.state
         if self.state == 'q0':
+            if input_char != '<':
+                continue
             if input_char == '<':
                 self.state = 'q1'
+                if input_char == ' ':
+                    self.state = 'q1'
             else:
                 self.errors.append((previous_state, input_char))
                 self.error()
+                continue
         elif self.state == 'q1':
             if input_char == 'h':
                 self.state = 'q_h'
@@ -455,6 +461,7 @@ class Automata:
             if input_char == '<':
                 self.state = 'qc_open'
             else:
+                continue
                 self.error()
 
         elif self.state == 'qc_open':
@@ -476,9 +483,7 @@ class Automata:
                 self.state = 'qc_a'
             elif input_char == 'p':
                 self.state = 'qc_p'
-            # Continuing with CLOSING STATES...
-        
-        # Closing states for HTML tags
+
         elif self.state == 'qc_h':
             if input_char == 't':
                 self.state = 'qc_ht'
@@ -941,8 +946,7 @@ class AutomataGUI:
         self.result_area.delete("1.0", tk.END)
 
         # Ejecutar el autómata con la entrada
-        for char in input_html:
-            self.automata.transition(char)
+        self.automata.transition(input_html)
 
         # Mostrar el estado final
         final_state_message = f"Estado final del autómata: {self.automata.state}\n"
