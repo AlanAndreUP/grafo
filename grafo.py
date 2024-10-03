@@ -10,6 +10,8 @@ class Automata:
       for input_char in input_string:
         previous_state = self.state
         if self.state == 'q0':
+            if input_char != '<':
+                continue
             if input_char == '<':
                 self.state = 'q1'
                 if input_char == ' ':
@@ -33,7 +35,7 @@ class Automata:
             elif input_char == '/':
                 self.state = 'qc_open'
             else:
-                self.error()
+                continue
 
         # OPENING STATES
 
@@ -139,6 +141,7 @@ class Automata:
         elif self.state == 'q_body':
             if input_char == '>':
                 self.state = 'q_body_close'
+                self.finalState()
             else:
                 continue
 
@@ -259,6 +262,7 @@ class Automata:
         elif self.state == 'q_man':
             if input_char == '>':
                 self.state = 'q_main_close'
+                self.finalState()
             else:
                 continue
 
@@ -294,6 +298,7 @@ class Automata:
         elif self.state == 'q_style':
             if input_char == '>':
                 self.state = 'q_style_close'
+                self.finalState()
             else:
                 continue
 
@@ -324,6 +329,7 @@ class Automata:
         elif self.state == 'q_sct':
             if input_char == '>':
                 self.state = 'q_script_close'
+                self.finalState()
             else:
                 continue
 
@@ -360,6 +366,7 @@ class Automata:
         elif self.state == 'q_sen':
             if input_char == '>':
                 self.state = 'q_section_close'
+                self.finalState()
             else:
                 continue
 
@@ -405,6 +412,7 @@ class Automata:
         elif self.state == 'q_are':
             if input_char == '>':
                 self.state = 'q_article_close'
+                self.finalState()
             else:
                 continue
 
@@ -429,6 +437,7 @@ class Automata:
         elif self.state == 'q_ase':
             if input_char == '>':
                 self.state = 'q_aside_close'
+                self.finalState()
             else:
                 continue
 
@@ -438,6 +447,7 @@ class Automata:
                 self.state = 'q_pr'
             elif input_char == '>':
                 self.state = 'q_p_close'
+                self.finalState()
             else:
                 continue
 
@@ -459,13 +469,16 @@ class Automata:
                 self.state = 'qc_open'
             else:
                 continue
+        elif self.state == 'q_head_close':
+            if input_char == '<':
+                self.state = 'qc_open'
+            else:
                 continue
-
         elif self.state == 'qc_open':
             if input_char == '/':
                 self.state = 'qc_diagonal'
             else:
-               self.error()
+              continue
 
         elif self.state == 'qc_diagonal':
             if input_char == 'h':
@@ -480,6 +493,8 @@ class Automata:
                 self.state = 'qc_a'
             elif input_char == 'p':
                 self.state = 'qc_p'
+            else :
+                continue
 
         elif self.state == 'qc_h':
             if input_char == 't':
@@ -508,12 +523,14 @@ class Automata:
         elif self.state == 'qc_hl':
             if input_char == '>':
                 self.state = 'qc_html_close'
+                self.finalState()
             else:
                 continue
 
         elif self.state == 'qc_hr':
             if input_char == '>':
                 self.state = 'qc_hr_close'
+                self.finalState()
             else:
                 continue
 
@@ -532,6 +549,7 @@ class Automata:
         elif self.state == 'qc_hed':
             if input_char == '>':
                 self.state = 'qc_head_close'
+                self.finalState()
             elif input_char == 'e':
                 self.state = 'qc_hee'
             else:
@@ -553,6 +571,7 @@ class Automata:
         elif self.state.startswith('qc_h_num'):
             if input_char == '>':
                 self.state = 'qc_hn_close'
+                self.finalState()
             else:
                 continue
 
@@ -584,12 +603,14 @@ class Automata:
         elif self.state == 'qc_body':
             if input_char == '>':
                 self.state = 'qc_body_close'
+                self.finalState()
             else:
                 continue
 
         elif self.state == 'qc_br':
             if input_char == '>':
                 self.state = 'qc_br_close'
+                self.finalState()
             else:
                 continue
 
@@ -608,6 +629,7 @@ class Automata:
         elif self.state == 'qc_bae':
             if input_char == '>':
                 self.state = 'qc_base_close'
+                self.finalState()
             else:
                 continue
 
@@ -643,6 +665,7 @@ class Automata:
                 self.state = 'qc_blo'
             else:
                 continue
+            
 
         elif self.state == 'qc_blo':
             if input_char == 't':
@@ -659,6 +682,7 @@ class Automata:
         elif self.state == 'qc_ble':
             if input_char == '>':
                 self.state = 'qc_blockquote_close'
+                self.finalState()
             else:
                 continue
 
@@ -686,6 +710,7 @@ class Automata:
         elif self.state == 'qc_meta':
             if input_char == '>':
                 self.state = 'qc_meta_close'
+                self.finalState()
             else:
                 continue
 
@@ -704,6 +729,7 @@ class Automata:
         elif self.state == 'qc_man':
             if input_char == '>':
                 self.state = 'qc_main_close'
+                self.finalState()
             else:
                 continue
 
@@ -739,6 +765,7 @@ class Automata:
         elif self.state == 'qc_style':
             if input_char == '>':
                 self.state = 'qc_style_close'
+                self.finalState()
             else:
                 continue
 
@@ -769,6 +796,7 @@ class Automata:
         elif self.state == 'qc_sct':
             if input_char == '>':
                 self.state = 'qc_script_close'
+                self.finalState()
             else:
                 continue
 
@@ -805,6 +833,7 @@ class Automata:
         elif self.state == 'qc_sen':
             if input_char == '>':
                 self.state = 'qc_section_close'
+                self.finalState()
             else:
                 continue
 
@@ -850,6 +879,7 @@ class Automata:
         elif self.state == 'qc_are':
             if input_char == '>':
                 self.state = 'qc_article_close'
+                self.finalState()
             else:
                 continue
 
@@ -874,6 +904,7 @@ class Automata:
         elif self.state == 'qc_ase':
             if input_char == '>':
                 self.state = 'qc_aside_close'
+                self.finalState()
             else:
                 continue
 
@@ -883,6 +914,7 @@ class Automata:
                 self.state = 'qc_pr'
             elif input_char == '>':
                 self.state = 'qc_p_close'
+                self.finalState()
             else:
                 continue
 
@@ -895,6 +927,7 @@ class Automata:
         elif self.state == 'qc_pre':
             if input_char == '>':
                 self.state = 'qc_pre_close'
+                self.finalState()
             else:
                 continue
 
@@ -903,72 +936,52 @@ class Automata:
 
     def error(self):
         print(f"Error: invalid transition from state {self.state}")
-        self.state = 'q0'
+    def finalState(self):
+        if(self.state == 'qc_head_close'):
+            self.state = 'q0'
+        if(self.state == 'q_body_close'):
+            self.state = 'q0'
+        self.state = self.state 
        
 
 class AutomataGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Autómata HTML")
-
-        # Etiqueta de instrucciones
         self.label = tk.Label(root, text="Ingrese su código HTML:")
         self.label.pack(pady=10)
-
-        # Cuadro de texto para ingresar HTML
         self.text_area = scrolledtext.ScrolledText(root, width=60, height=15, wrap=tk.WORD)
         self.text_area.pack(pady=10)
-
-        # Botón para iniciar el autómata
         self.run_button = tk.Button(root, text="Ejecutar Autómata", command=self.run_automata)
         self.run_button.pack(pady=10)
-
-        # Botón para guardar el CSV
         self.save_csv_button = tk.Button(root, text="Guardar Errores en CSV", command=self.save_to_csv, state=tk.DISABLED)
         self.save_csv_button.pack(pady=10)
-
-        # Cuadro de texto para mostrar el resultado
         self.result_area = scrolledtext.ScrolledText(root, width=60, height=5, wrap=tk.WORD, state=tk.DISABLED)
         self.result_area.pack(pady=10)
-
-        # Almacenar errores
         self.automata = Automata()
 
     def run_automata(self):
-        input_html = self.text_area.get("1.0", tk.END).strip()  # Obtener el texto del área
-        self.automata = Automata()  # Reiniciar el autómata para cada ejecución
-
-        # Reiniciar el área de resultado
+        input_html = self.text_area.get("1.0", tk.END).strip()
+        self.automata = Automata()
         self.result_area.config(state=tk.NORMAL)
         self.result_area.delete("1.0", tk.END)
-
-        # Ejecutar el autómata con la entrada
         self.automata.transition(input_html)
-
-        # Mostrar el estado final
         final_state_message = f"Estado final del autómata: {self.automata.state}\n"
         self.result_area.insert(tk.END, final_state_message)
-
-        # Mostrar los errores si hay
         if self.automata.errors:
             self.result_area.insert(tk.END, "Errores detectados:\n")
             for error in self.automata.errors:
                 self.result_area.insert(tk.END, f"Error en estado {error[0]} con símbolo '{error[1]}'\n")
 
         self.result_area.config(state=tk.DISABLED)
-
-        # Activar botón para guardar en CSV si hay errores
         if self.automata.errors:
             self.save_csv_button.config(state=tk.NORMAL)
 
     def save_to_csv(self):
-        # Abrir diálogo para guardar el archivo
         file_path = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
 
         if not file_path:
-            return  # Cancelado por el usuario
-
-        # Escribir los errores en el archivo CSV
+            return 
         try:
             with open(file_path, mode='w', newline='') as file:
                 writer = csv.writer(file)
@@ -980,10 +993,6 @@ class AutomataGUI:
             messagebox.showinfo("Éxito", "Errores guardados exitosamente en CSV.")
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo guardar el archivo: {str(e)}")
-
-# Crear la ventana principal
 root = tk.Tk()
 app = AutomataGUI(root)
-
-# Iniciar el bucle de la aplicación
 root.mainloop()
